@@ -1,0 +1,11 @@
+workflow asloadtest_new{
+Param($NumberofConnections)
+$array = 1.. $NumberofConnections
+function ASLoadTest($i){
+Invoke-ASCmd -Server *insert server address* -Database *insert db name* -InputFile *AS query file*| out-null
+Invoke-ASCmd -Server *insert server address* -Database *insert db name* -InputFile *AS cache clear file* | out-null
+;
+}
+foreach -parallel ($i in $array) {ASLoadTest $i}
+}
+Cls
